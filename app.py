@@ -1,52 +1,51 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, request, jsonify
+from dotenv import load_dotenv
 import os
 import requests
 import json
-from dotenv import load_dotenv
 
 load_dotenv()
-user_id = os.getenv("USER_ID")
-
-url = f"https://api.lanyard.rest/v1/users/{user_id}"
-response = requests.get(url)
-
-response_data = response.json()
-
-spotify_data = response_data['data']['spotify']
-album_art_url = spotify_data['album_art_url']
-artist_names = spotify_data['artist'] 
-song_name = spotify_data['song']
-
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
+def fetch_and_process_spotify_data(user_id):
+    """Fetches, processes, and returns Spotify data for a given user ID."""
     url = f"https://api.lanyard.rest/v1/users/{user_id}"
     response = requests.get(url)
-    response_data = response.json()
 
-    if 'spotify' in response_data['data']:
-        spotify_data = response_data['data']['spotify']
-        album_art_url = spotify_data['album_art_url']
-        artist_names = spotify_data['artist'] 
-        song_name = spotify_data['song']
-    else:
-        # Handle 'no Spotify data' case 
-        album_art_url = "placeholder.jpg"  
-        artist_names = "No song playing"
-        song_name = ""
+    if response.status_code == 200:
+        response_data = response.json()
+        if 'spotify' in response_data['data']:
+            return {  # Return processed data directly
+                'album_art_url': response_data['data']['spotify']['album_art_url'],
+                'artist_names': response_data['data']['spotify']['artist'],
+                'song_name': response_data['data']['spotify']['song']
+            }
 
-    return render_template('index.html', album_art_url=album_art_url, artist_names=artist_names, song_name=song_name)
+    # Handle all potential error cases with a single return
+    return {  
+        'album_art_url': "placeholder.jpg", 
+        'artist_names': "No song playing",
+        'song_name': ""
+    }
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        spotify_data = fetch_and_process_spotify_data(user_id)
+        return render_template('index.html', **spotify_data)
+
+    return render_template('index.html')
 
 @app.route('/spotify-data')
 def get_spotify_data():
-    # ... (Same code to fetch/process Spotify data as above) ...  
-    return jsonify({
-        'album_art_url': album_art_url,
-        'artist_names': artist_names,
-        'song_name': song_name
-    })
+    user_id = request.args.get('user_id')  # Get user_id from query parameter
+    if not user_id:
+        return jsonify({'error': 'Missing user_id'}), 400  # Error handling
+
+    spotify_data = fetch_and_process_spotify_data(user_id)
+    return jsonify(spotify_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

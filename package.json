@@ -1,0 +1,7 @@
+{
+    "scripts": {
+      "dev": "flask run",
+      "build": "echo 'No build step needed for Flask'",
+      "start": "flask run"
+    }
+  }
