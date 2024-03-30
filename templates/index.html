@@ -23,19 +23,29 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            $('form').submit(function(event) {
-                event.preventDefault(); 
-                const userId = $('input[name="user_id"]').val();
+$(document).ready(function() {
+    function updateSpotifyData() {  
+        $('form').submit(function(event) {
+            event.preventDefault(); 
+            const userId = $('input[name="user_id"]').val();
 
-                $.getJSON(`/spotify-data?user_id=${userId}`, function(data) {
-                    $('#album-art').attr('src', data.album_art_url);
-                    $('#artist').text(data.artist_names);
-                    $('#song').text(data.song_name);
-                    $('#spotify-content').show(); 
-                });
+            $.getJSON(`/spotify-data?user_id=${userId}`, function(data) {
+                $('#album-art').attr('src', data.album_art_url);
+                $('#artist').text(data.artist_names);
+                $('#song').text(data.song_name);
+                $('#spotify-content').show();
+                $(this).closest('.spotify-container').hide(); 
             });
         });
+    }
+
+    updateSpotifyData(); // Call initially to load data
+    setInterval(updateSpotifyData, 2000); // Update every 2 seconds
+});
+
+
+
+        
     </script>
 </body>
 </html>
