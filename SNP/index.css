@@ -1,4 +1,44 @@
-.card {
-    max-width: 400px;
-    margin: 0 auto;
+body {
+    background-color: #373536;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Set the body height to 100% of the viewport height */
+    margin: 0; /* Remove default margin */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.spotify, .github {
+    background-color: #00DA5A;
+    color: #ffffff;
+    padding: 0.5rem 1.4rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: .6s ease;
+    display: flex;
+    align-items: center; /* Center the content vertically */
+    gap: 0.75rem;
+}
+
+
+.github {
+    background-color: 	#2b3137;
+}
+.spotify svg, .github svg {
+    height: 30px;
+}
+
+.spotify:hover, .github:hover {
+    box-shadow: none;
 }
