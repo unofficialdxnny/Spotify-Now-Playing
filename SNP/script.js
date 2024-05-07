@@ -1,6 +1,6 @@
 const clientId = '1ca36fe2f4b345a8b7b54238868e2318';
 const redirectUri = 'http://localhost:5500/SNP/callback.html';
-const clientSecret = '7bf337a0dc774655a7bce821c7a847d1'
+const clientSecret = '7bf337a0dc774655a7bce821c7a847d1';
 
 const trackInfoText = document.getElementById('track-info');
 
@@ -13,12 +13,7 @@ function updateTrackInfo(trackData) {
     albumCover.src = trackData.album.images[0].url;
     songName.textContent = trackData.name;
     artistName.textContent = trackData.artists[0].name;
-}
-
-// Function to update progress bar
-function updateProgressBar(progress) {
-    const progressBar = document.getElementById('progress-bar');
-    progressBar.style.width = `${progress * 100}%`;
+    
 }
 
 // Function to fetch currently playing track
@@ -37,7 +32,6 @@ function fetchCurrentlyPlayingTrack(accessToken) {
     })
     .then(data => {
         updateTrackInfo(data.item);
-        updateProgressBar(data.progress_ms / data.item.duration_ms);
     })
     .catch(error => {
         console.error('Error fetching currently playing track:', error);

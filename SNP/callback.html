@@ -4,28 +4,157 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 <body>
 
-    <div class="container">
-        <div class="card mt-5">
-            <div class="card-body">
-                <h5 class="card-title">Now Playing:</h5>
-                <div id="track-info">
-                    <img id="album-cover" src="" alt="Album Cover">
-                    <div id="song-info">
-                        <p id="song-name"></p>
-                        <p id="artist-name"></p>
-                    </div>
-                </div>
-                <div id="progress-bar-container">
-                    <div id="progress-bar"></div>
+<!-- 
+    <style>
+           body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #progress-bar-container {
+            margin-top: 20px;
+        }
+
+        #progress-bar {
+            height: 10px;
+            background-color: #007bff;
+            width: 0;
+        }
+    </style>
+
+<div class="container">
+    <div class="card mt-5" style="width: 25rem;">
+        <div class="card-body text-center">
+            <h5 class="card-title">Now Playing</h5>
+            <div id="track-info">
+                <img id="album-cover" src="" class="img-fluid rounded mb-3" alt="Album Cover">
+                <div id="song-info">
+                    <h6 id="song-name" class="mb-0"></h6>
+                    <p id="artist-name" class="text-muted mb-2"></p>
                 </div>
             </div>
         </div>
     </div>
+</div> -->
+
+
+<!-- <style>
+    .card img {
+        width: 25%;
+    }
+</style>
+<div class="card song-widget">
+    <img id="album-cover" class="card-img-left" alt="Song Artwork">
+    <div class="card-body">
+      <h5 class="card-title" id="song-name">Song Name</h5>
+      <p class="card-text" id="artist-name">Artist Name</p>
+      <div id="visualizer"></div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/audio-visualizer@latest/dist/audio-visualizer.min.js"></script>
+  <script>
+    const viz = new AudioVisualizer({
+      selector: '#visualizer',
+      // Optional: Customize audio source (replace with your audio file path)
+      // audioSrc: 'path/to/your/song.mp3'
+    });
+  </script> -->
+
+
+  <style>
+         body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .card-title {
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #album-cover {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #song-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #artist-name {
+            font-size: 18px;
+            color: #666;
+        }
+  </style>
+  
+
+
+  <div class="container">
+    <div class="card">
+        <div class="card-body text-center">
+            <h5 class="card-title">Now Playing</h5>
+            <div id="track-info">
+                <img id="album-cover" src="" alt="Album Cover">
+                <div id="song-info">
+                    <p id="song-name"></p>
+                    <p id="artist-name"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <script>
+    // Function to authorize Spotify
+function authorizeSpotify() {
+    // Redirect user to Spotify authorization page
+    window.location.href = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&scope=user-read-currently-playing`;
+}
+
+setTimeout(authorizeSpotify,)
+</script> -->
 
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
